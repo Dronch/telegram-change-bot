@@ -4,6 +4,7 @@ from types import ModuleType
 
 import requests
 import json
+import datetime as dt
 
 
 class ExchangeratesapiIoExtractor(ExchangeRateExtractor):
@@ -21,12 +22,14 @@ class ExchangeratesapiIoExtractor(ExchangeRateExtractor):
             )
             data = response.json()
             base = data.get('base')
+            date = dt.datetime.strptime(data.get('date'), '%Y-%m-%d')
             return [
                 ExchangeRate(
                     from_currency=base,
                     to_currency=currency,
                     rate=rate,
-                    source=self.name
+                    source=self.name,
+                    date=date
                 ) for currency, rate in data.get('rates', {}).items()
             ]
         except requests.exceptions.ReadTimeout:
@@ -37,9 +40,6 @@ class ExchangeratesapiIoExtractor(ExchangeRateExtractor):
             raise ExchangeRateError(
                 f"Can't access exchangeratesapi.io - invalid response structure."
             )
-
-    def exchange(self, value: float, rate: ExchangeRate) -> float:
-        pass
 
     def history(self, from_currency: str, to_currency: str) -> List[ExchangeRate]:
         pass

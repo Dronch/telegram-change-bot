@@ -19,9 +19,7 @@ class ExchangeRate(object):
     to_currency: str
     rate: float
     source: str
-
-    def __str__(self):
-        return f"{self.to_currency}: {self.rate:.2f}"
+    date: dt.datetime
 
 
 class ExchangeRateExtractor(ABC):
@@ -55,10 +53,6 @@ class ExchangeRateExtractor(ABC):
 
     @abstractmethod
     def list(self, from_currency: str) -> List[ExchangeRate]:
-        pass
-
-    @abstractmethod
-    def exchange(self, value: float, rate: ExchangeRate) -> float:
         pass
 
     @abstractmethod
