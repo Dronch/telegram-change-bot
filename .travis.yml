@@ -5,6 +5,6 @@ install:
   - pip install pipenv
   - pipenv install --dev
   - pip install codecov
-script: pytest --cov=telegram_change_bot
+script: PYTHONPATH=. pytest --cov=telegram_change_bot
 after_success:
   - codecov
