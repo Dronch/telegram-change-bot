@@ -7,7 +7,7 @@ env.read_env()
 WEB_EXTRACTOR_SOURCE = env.str('WEB_EXTRACTOR_SOURCE', 'exchangeratesapi.io')
 WEB_EXTRACTOR_TIMEOUT = env.int('WEB_EXTRACTOR_TIMEOUT', 5)
 
-DATABASE_SQLALCHEMY_URL = env.str('DATABASE_SQLALCHEMY_URL', 'sqlite://///app.db')
+DATABASE_SQLALCHEMY_URL = env.str('DATABASE_SQLALCHEMY_URL', 'sqlite:///app.db')
 
 CACHE_TIMEOUT = env.int('CACHE_TIMEOUT', 60 * 10)
 
