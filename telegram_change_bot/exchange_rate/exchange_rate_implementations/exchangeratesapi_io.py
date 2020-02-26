@@ -72,7 +72,6 @@ class ExchangeratesapiIoExtractor(ExchangeRateExtractor):
             raise ExchangeRateError(data["error"])
 
         base = data.get('base')
-        print(123)
         return [
             ExchangeRate(
                 from_currency=base,
