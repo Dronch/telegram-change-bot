@@ -1,6 +1,4 @@
-from telegram_change_bot import Bot
-
-import config
+from telegram_change_bot import Bot, config
 
 import logging
 
