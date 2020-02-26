@@ -11,11 +11,13 @@ pillow = "*"
 sqlalchemy = "*"
 pysocks = "*"
 environs = "*"
+pymysql = "*"
 
 [dev-packages]
 pytest = "*"
 pytest-mock = "*"
 requests-mock = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.7"
