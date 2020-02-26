@@ -56,7 +56,9 @@ class ExchangeRateExtractor(ABC):
         pass
 
     @abstractmethod
-    def history(self, from_currency: str, to_currency: str) -> List[ExchangeRate]:
+    def history(
+            self, from_currency: str, to_currency: str, start_at: dt.date, end_at: dt.date
+    ) -> List[ExchangeRate]:
         pass
 
 
