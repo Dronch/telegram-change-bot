@@ -61,7 +61,7 @@ class Bot:
 
     def run(self):
         """Run bot"""
-        self.updater.start_polling()
+        self.updater.start_polling(timeout=100)
 
     def help(self, bot, update):
         bot.sendChatAction(chat_id=update.message.chat_id, action=ChatAction.TYPING)

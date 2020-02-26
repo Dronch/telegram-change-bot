@@ -16,4 +16,4 @@ BASE_CURRENCY = env.str('BASE_CURRENCY', 'USD')
 TELEGRAM_TOKEN = env.str('TELEGRAM_TOKEN')
 TELEGRAM_REQUEST_KWARGS = {
     'proxy_url': env.str('TELEGRAM_PROXY')
-} if env.str('TELEGRAM_PROXY') else {}
+} if env.str('TELEGRAM_PROXY', '') else {}

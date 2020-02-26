@@ -22,7 +22,7 @@ class Cache(Model):
     """Cache model"""
     __tablename__ = 'Cache'
     created_at = Column(DateTime, default=dt.datetime.utcnow)
-    key = Column(String(16))
+    key = Column(String(1024))
     exchange_rates = relationship('ExchangeRateModel')
 
 

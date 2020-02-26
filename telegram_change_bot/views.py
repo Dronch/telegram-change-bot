@@ -26,9 +26,11 @@ def cache(f):
     @wraps(f)
     @session
     def decorated(self, session, *args, **kwargs):
-        key = f.__name__ + \
-              ' '.join([str(i) for i in args]) + \
-              ' '.join(f'{key}: {value}' for key, value in kwargs.items())
+        key = ' '.join([
+            f.__name__,
+            ' '.join([str(i) for i in args]),
+            ' '.join(f'{key}: {value}' for key, value in kwargs.items())
+        ])
 
         expired = dt.datetime.utcnow() - dt.timedelta(seconds=self.cache_timeout)
 

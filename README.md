@@ -22,9 +22,10 @@ This app uses SQLAlchemy orm, so any supported database could be used.
 | TELEGRAM_TOKEN          | Telegram token                             | !!! REQUIRED !!!        |
 
 ## Docker
-This example will setup app, mysql and tor (as proxy to access telegram)
+This example will setup app, mysql and tor (as proxy to access telegram).
+Set TELEGRAM_TOKEN in `docker-compose.yml` and run:
 ```
-TELEGRAM_TOKEN=<your token> docker compose up
+docker compose up --build
 ```
 
 ## Start locally with SQLite without proxy

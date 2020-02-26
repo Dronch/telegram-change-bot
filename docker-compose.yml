@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 
 services:
 
@@ -9,14 +9,16 @@ services:
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: ${SQL_DATABASE}
-      MYSQL_USER: ${SQL_USER}
-      MYSQL_PASSWORD: ${SQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${SQL_PASSWORD}
+      MYSQL_DATABASE: change
+      MYSQL_USER: bot
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
     volumes:
       - ./mysql-datavolume:/var/lib/mysql
     ports:
       - 3306:3306
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u bot --password=password
 
   tor:
     container_name: tor
@@ -26,13 +28,18 @@ services:
 
   bot:
     container_name: bot
+    restart: always
     hostname: bot
     build:
       context: .
     environment:
       WEB_EXTRACTOR_SOURCE: exchangeratesapi.io
       WEB_EXTRACTOR_TIMEOUT: 5
-      DATABASE_SQLALCHEMY_URL: mysql+pymysql://${SQL_USER}:${SQL_PASSWORD}@db:3306/${SQL_DATABASE}
+      DATABASE_SQLALCHEMY_URL: mysql+pymysql://bot:password@db:3306/change
       CACHE_TIMEOUT: 600
       BASE_CURRENCY: USD
       TELEGRAM_PROXY: socks5://tor:9050
+      TELEGRAM_TOKEN: <your token>
+    depends_on:
+      db:
+        condition: service_healthy

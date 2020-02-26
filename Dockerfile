@@ -10,8 +10,8 @@ ENV PATH="/home/bot/.local/bin:${PATH}"
 
 
 COPY Pipfile ./
-RUN pipenv lock
 RUN pipenv install
-COPY ./* ./
+COPY ./telegram_change_bot ./telegram_change_bot
+COPY ./app.py ./app.py
 
 ENTRYPOINT [ "pipenv", "run", "python", "app.py" ]
