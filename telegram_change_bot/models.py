@@ -31,6 +31,3 @@ class ExchangeRateModel(Model):
     source = Column(String(32))
     date = Column(Date)
     cache_id = Column(Integer, ForeignKey('Cache.id'))
-
-    def __str__(self):
-        return f"{self.to_currency}: {self.rate:.2f}"

@@ -21,6 +21,9 @@ class ExchangeRate(object):
     source: str
     date: dt.datetime
 
+    def __str__(self):
+        return f"{self.to_currency}: {self.rate:.2f}"
+
 
 class ExchangeRateExtractor(ABC):
 
