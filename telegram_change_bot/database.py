@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from types import ModuleType
@@ -6,6 +7,7 @@ from .models import meta, ExchangeRateModel, Cache
 
 
 class Database(object):
+    """Database wrapper"""
 
     @classmethod
     def from_config(cls, config: ModuleType):

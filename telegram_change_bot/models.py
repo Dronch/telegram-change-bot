@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from sqlalchemy import Column, MetaData, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -12,11 +13,13 @@ meta = MetaData()
 
 
 class Model(declarative_base(metadata=meta)):
+    """Base model"""
     __abstract__ = True
     id = Column(Integer, primary_key=True)
 
 
 class Cache(Model):
+    """Cache model"""
     __tablename__ = 'Cache'
     created_at = Column(DateTime, default=dt.datetime.utcnow)
     key = Column(String(16))
@@ -24,6 +27,7 @@ class Cache(Model):
 
 
 class ExchangeRateModel(Model):
+    """Exchange rate model"""
     __tablename__ = 'ExchangeRate'
     from_currency = Column(String(3))
     to_currency = Column(String(3))

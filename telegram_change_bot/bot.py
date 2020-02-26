@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from types import ModuleType
 from functools import wraps
 
@@ -12,6 +13,7 @@ from .graph import history_graph
 
 
 def error_handler(f):
+    """Decorator for handling internal errors"""
     @wraps(f)
     def decorated(self, bot, update, *args, **kwargs):
         bot.sendChatAction(chat_id=update.message.chat_id, action=ChatAction.TYPING)
@@ -23,6 +25,7 @@ def error_handler(f):
 
 
 class Bot:
+    """Telegram bot"""
 
     def __init__(self):
         self.updater = None
@@ -34,6 +37,7 @@ class Bot:
         self.views = None
 
     def init(self, config: ModuleType):
+        """Initialization"""
         self.views = ExchangeRateViews(config)
 
         token = getattr(config, 'TELEGRAM_TOKEN', None)
@@ -56,6 +60,7 @@ class Bot:
         self.dispatcher.add_handler(CommandHandler('history', self.history, pass_args=True))
 
     def run(self):
+        """Run bot"""
         self.updater.start_polling()
 
     def help(self, bot, update):
@@ -73,11 +78,13 @@ class Bot:
 
     @error_handler
     def list(self, bot, update):
+        """List all available currencies rates"""
         msg = '\n'.join([str(i) for i in self.views.list()])
         bot.send_message(chat_id=update.message.chat_id, text=msg)
 
     @error_handler
     def exchange(self, bot, update, args):
+        """Calc exchange value"""
         query = ' '.join(args)
         match = re.compile(r'(\d+) %s to ([A-Z]{3})' % self.base).match(query)
 
@@ -93,6 +100,7 @@ class Bot:
 
     @error_handler
     def history(self, bot, update, args):
+        """Get history graph image"""
         query = ' '.join(args)
         match = re.compile(r'%s/([A-Z]{3}) for (\d+) days' % self.base).match(query)
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
@@ -9,6 +10,7 @@ from .exchange_rate import ExchangeRate
 
 
 def history_graph(history: List[ExchangeRate]) -> io.BytesIO:
+    """Create image from history values"""
 
     x, y, from_currency, to_currency = [], [], None, None
     for item in sorted(history, key=lambda i: i.date):

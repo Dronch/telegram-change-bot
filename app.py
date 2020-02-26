@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from telegram_change_bot import Bot, config
 
 import logging

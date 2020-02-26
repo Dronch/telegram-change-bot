@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from ..core import ExchangeRateExtractor, ExchangeRate, ExchangeRateError
 from typing import List
 from types import ModuleType
@@ -9,6 +10,7 @@ import datetime as dt
 
 
 def remote_exceptions(f):
+    """Decorator to handle remote exceptions"""
     @wraps(f)
     def decorated(self, *args, **kwargs):
         try:
@@ -25,6 +27,7 @@ def remote_exceptions(f):
 
 
 class ExchangeratesapiIoExtractor(ExchangeRateExtractor):
+    """Exchange rate source, based on exchangeratesapi.io"""
 
     name = "exchangeratesapi.io"
 

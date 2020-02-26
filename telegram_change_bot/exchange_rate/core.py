@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import List
@@ -14,6 +15,7 @@ from . import exchange_rate_implementations
 
 @dataclass
 class ExchangeRate(object):
+    """Dataclass for exchange rate"""
 
     from_currency: str
     to_currency: str
@@ -26,6 +28,7 @@ class ExchangeRate(object):
 
 
 class ExchangeRateExtractor(ABC):
+    """Abstract class for different exchange rate sources"""
 
     @classmethod
     def from_config(cls, config: ModuleType):

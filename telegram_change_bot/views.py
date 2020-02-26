@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .database import Database, ExchangeRateModel, Cache
 from .exchange_rate import ExchangeRateError, ExchangeRate, ExchangeRateExtractor
 from types import ModuleType
@@ -9,6 +10,7 @@ import datetime as dt
 
 
 def session(f):
+    """Decorator to create and close db session"""
     @wraps(f)
     def decorated(self, *args, **kwargs):
         session = self.db.Session()
@@ -20,6 +22,7 @@ def session(f):
 
 
 def cache(f):
+    """Decorator to cache function results, it creates key, based on function name and inputs"""
     @wraps(f)
     @session
     def decorated(self, session, *args, **kwargs):
@@ -52,6 +55,7 @@ def cache(f):
 
 
 class ExchangeRateViews(object):
+    """App views"""
 
     def __init__(self, config: ModuleType):
         self.db = Database.from_config(config)
@@ -61,9 +65,11 @@ class ExchangeRateViews(object):
 
     @cache
     def list(self) -> List[ExchangeRate]:
+        """List all currencies"""
         return self.extractor.list(self.base_currency)
 
     def exchange(self, to_currency: str, value: float) -> float:
+        """Calc exchange"""
         exchange_rate = next(iter(filter(lambda x: x.to_currency == to_currency, self.list())), None)
 
         if exchange_rate is None:
@@ -73,6 +79,7 @@ class ExchangeRateViews(object):
 
     @cache
     def history(self, to_currency: str, start_at: dt.date, end_at: dt.date) -> List[ExchangeRate]:
+        """List historical values"""
         return self.extractor.history(self.base_currency, to_currency, start_at, end_at)
 
 
